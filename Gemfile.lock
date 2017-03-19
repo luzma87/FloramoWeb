@@ -15,6 +15,9 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    hanami-utils (0.9.2)
+    hanami-validations (0.5.0)
+      hanami-utils (~> 0.7)
     json-schema (2.8.0)
       addressable (>= 2.4)
     listen (3.1.5)
@@ -78,6 +81,7 @@ DEPENDENCIES
   awesome_print
   bson_ext
   dotenv
+  hanami-validations
   json-schema
   pg
   puma

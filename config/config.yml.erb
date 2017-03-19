@@ -1,0 +1,19 @@
+pg_user:
+  default: <%= ENV['PG_USER'] || 'postgres' %>
+
+pg_password:
+  default: <%= ENV['PG_PASSWORD'] || 'postgres' %>
+
+pg_host:
+ default: <%= ENV['PG_HOST'] || '127.0.0.1' %>
+
+pg_port:
+  default: <%= ENV['PG_PORT'] || '5432' %>
+
+pg_database:
+  development: <%= ENV['PG_DATABASE'] || 'floramoWeb' %>
+  production: <%= ENV['PG_DATABASE'] || 'floramoWeb' %>
+  default: <%= ENV['PG_DATABASE'] || 'floramoWeb' %>
+
+
+
