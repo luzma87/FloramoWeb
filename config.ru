@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require_relative './boot'
 
 # pull in the helpers and controllers
 Dir.glob('./lib/{helpers,controllers,api}/*.rb').each { |file| require file }
@@ -13,4 +12,3 @@ map('/') { run FloramoApp }
 map('/login') { run LoginController }
 
 map('/error') { run ErrorController }
-

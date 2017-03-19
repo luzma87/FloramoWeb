@@ -4,6 +4,4 @@ class UserController < FloramoApp
   def initialize
     super
   end
-
-
 end

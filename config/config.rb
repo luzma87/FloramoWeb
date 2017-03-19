@@ -4,7 +4,7 @@ require 'erb'
 def config_file(path, sinatra = true)
   document = IO.read(path)
   document = ERB.new(document).result
-  yaml = YAML.load(document)
+  yaml = YAML.safe_load(document)
 
   if sinatra
     yaml.each_pair do |key, value|

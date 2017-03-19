@@ -13,7 +13,6 @@ class User
     @email = params[:email]
     @password = params[:password]
     @role = params[:role]
-
   end
 
   attr_reader :email

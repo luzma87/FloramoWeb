@@ -1,7 +1,5 @@
 ENV['RACK_ENV'] = 'test'
 
-require_relative '../boot'
-
 require 'lib/tasks/db'
 require 'database_cleaner'
 
@@ -20,5 +18,4 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
 end

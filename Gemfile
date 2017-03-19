@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 ruby '2.4.0'
+gem 'bcrypt'
 gem 'bson_ext'
 gem 'dotenv'
 gem 'hanami-validations'
@@ -23,4 +24,3 @@ group :development do
   gem 'rubocop'
   gem 'shotgun'
 end
-

@@ -8,6 +8,7 @@ GEM
     ast (2.3.0)
     awesome_print (1.7.0)
     backports (3.6.8)
+    bcrypt (3.1.11)
     bson (1.12.5)
     bson_ext (1.12.5)
       bson (~> 1.12.5)
@@ -79,6 +80,7 @@ PLATFORMS
 DEPENDENCIES
   acme-client
   awesome_print
+  bcrypt
   bson_ext
   dotenv
   hanami-validations
