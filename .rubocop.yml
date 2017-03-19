@@ -1,0 +1,11 @@
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 100
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/NumericLiteralPrefix:
+  Enabled: false

@@ -1,0 +1,2 @@
+require './lib/tasks/db'
+
