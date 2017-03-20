@@ -1,3 +1,46 @@
 .container.main {
-    padding-top: 1.5rem ;
+    padding-top: 1.5rem;
 }
+
+img.thumbnail {
+    height: 80px;
+    border-radius: 10px;
+    border: solid 1px #3165a3;
+    margin-right: 15px;
+    position: relative;
+}
+img.thumbnail:after {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    background: red;
+}
+
+.especie-wrapper {
+    display: inline-flex;
+    margin: 3px;
+    padding: 10px;
+    border: solid 1px gray;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.especie-nombre {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.especie-familia {
+    font-style: italic;
+}
+
+img.especie-detalle {
+    height: 25px;
+}
+
+.ic_cl_, .ic_fv_ {
+    display: none;
+}
+

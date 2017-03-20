@@ -1,4 +1,19 @@
 <% especies.each do |especie| %>
-    <%= especie.nombre %>
-    <hr/>
+    <div class="especie-wrapper">
+      <img src="<%= especie.thumbnail_path %>" class="responsive-img thumbnail">
+      <div class="especie-info">
+        <div class="especie-nombre">
+          <%= especie.genero %> <%= especie.nombre %>
+        </div>
+        <div class="especie-familia">
+          <%= especie.familia %>
+        </div>
+        <div class="especie-detalles">
+          <img src="icons/ic_fv_<%= especie.forma_vida1 %>.png" class="especie-detalle ic_fv_<%= especie.forma_vida1 %>">
+          <img src="icons/ic_fv_<%= especie.forma_vida2 %>.png" class="especie-detalle ic_fv_<%= especie.forma_vida2 %>">
+          <img src="icons/ic_cl_<%= especie.color1 %>.png" class="especie-detalle ic_cl_<%= especie.color1 %>">
+          <img src="icons/ic_cl_<%= especie.color2 %>.png" class="especie-detalle ic_cl_<%= especie.color2 %>">
+        </div>
+      </div>
+    </div>
 <% end %>
