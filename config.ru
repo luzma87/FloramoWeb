@@ -11,6 +11,6 @@ end
 map('/') { run FloramoApp }
 map('/login') { run LoginController }
 
-map('/especie') { run EspecieController }
+map('/especies') { run EspecieController }
 
 map('/error') { run ErrorController }

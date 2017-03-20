@@ -11,4 +11,10 @@ class EspecieController < FloramoApp
 
     erb :'/especie/index', locals: { especies: especies }
   end
+
+  get '/:nombre_cientifico', auth: :admin do
+    nombre_cientifico = params[:nombre_cientifico]
+
+    erb :'/especie/show', locals: { nombre: nombre_cientifico }
+  end
 end

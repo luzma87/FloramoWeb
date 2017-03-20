@@ -68,9 +68,7 @@ class FloramoApp < Sinatra::Application
 
   def redirect_for_role
     @user = session[:user]
-    p "user? #{user?}"
-    p "admin? #{admin?}"
-    redirect '/especie' if admin?
+    redirect '/especies' if admin?
     redirect '/index' if user?
   end
 end
