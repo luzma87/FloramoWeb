@@ -70,7 +70,7 @@ class FloramoApp < Sinatra::Application
     @user = session[:user]
     p "user? #{user?}"
     p "admin? #{admin?}"
-    redirect '/user/create' if admin?
+    redirect '/especie' if admin?
     redirect '/index' if user?
   end
 end
