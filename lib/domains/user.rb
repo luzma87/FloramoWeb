@@ -10,21 +10,21 @@ class User
   def initialize(params)
     params[:role] = DEFAULT_ROLE if params[:role].nil?
 
-    @email = params[:email]
+    @username = params[:username]
     @password = params[:password]
     @role = params[:role]
   end
 
-  attr_reader :email
+  attr_reader :username
   attr_accessor :password
   attr_accessor :role
 
   def eql?(other)
-    other && @email == other.username
+    other && @username == other.username
   end
 
   def hash
-    @email.hash
+    @username.hash
   end
 
   alias == eql?
@@ -36,7 +36,6 @@ class User
         hash[var.to_s.delete('@')] = instance_variable_get(var)
       end
     end
-    hash[:_id] = @email
     hash
   end
 
@@ -49,6 +48,5 @@ class User
   end
 
   validates :password, presence: true, size: 8..255, format: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).+\z/
-  validates :email, presence: true, size: 6..254,
-                    format: /\A[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,63}\z/
+  validates :username, presence: true, size: 6..12, format: /\A[a-zA-Z0-9_]+\z/
 end

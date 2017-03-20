@@ -16,15 +16,15 @@ class LoginController < FloramoApp
   end
 
   post '/' do
-    email = params['email']
+    username = params['username']
     password = params['password']
 
-    if email == '' || password == ''
+    if username == '' || password == ''
       status 400
       'Credenciales requeridas'
     else
       service = UserService.new(pg_connection)
-      user = service.login(email, password)
+      user = service.login(username, password)
       if user
         status 200
         session[:user] = user
