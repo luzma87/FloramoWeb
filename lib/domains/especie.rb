@@ -7,9 +7,9 @@ class Especie
   # rubocop:disable Metric/MethodLength
   # rubocop:disable Metric/AbcSize
   def initialize(params)
+    @id = params[:id]
     @nombre = params[:nombre]
     @genero = params[:genero]
-    @familia = params[:familia]
     @id_tropicos = params[:id_tropicos]
     @color1 = params[:color1]
     @color2 = params[:color2]
@@ -22,9 +22,9 @@ class Especie
     @thumbnail = params[:thumbnail]
   end
 
+  attr_reader :id
   attr_accessor :nombre
   attr_accessor :genero
-  attr_accessor :familia
   attr_accessor :id_tropicos
   attr_accessor :color1
   attr_accessor :color2
@@ -37,15 +37,39 @@ class Especie
   attr_accessor :thumbnail
 
   def nombre_cientifico
-    "#{@genero} #{@nombre}"
+    "#{genero_nombre} #{@nombre}"
   end
 
   def thumbnail_path
     "encyclopedia/thumbnails/#{@thumbnail}"
   end
 
+  def color1_nombre
+    @color1.nombre if @color1
+  end
+
+  def color2_nombre
+    @color2.nombre if @color2
+  end
+
+  def forma_vida1_nombre
+    @forma_vida1.nombre if @forma_vida1
+  end
+
+  def forma_vida2_nombre
+    @forma_vida2.nombre if @forma_vida2
+  end
+
+  def genero_nombre
+    @genero.nombre
+  end
+
+  def familia_nombre
+    @genero.familia_nombre
+  end
+
   def eql?(other)
-    other && nombre_cientifico == other.nombre_cientifico && familia == other.familia
+    other && nombre_cientifico == other.nombre_cientifico && @familia == other.familia
   end
 
   def hash
