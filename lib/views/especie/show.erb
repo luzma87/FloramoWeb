@@ -1,1 +1,61 @@
-SHOW ME <%= nombre %>!
+<div class="row">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-image">
+        <img src="<%= especie.default_foto_path %>">
+        <span class="card-title text-shadow"><%= especie.nombre_cientifico %></span>
+        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+      </div>
+      <div class="card-content">
+        <form>
+          <div class="row">
+            <div class="input-field col s4">
+              <input id="familia" name="familia" type="text" class="validate" value="<%= especie.familia_nombre %>">
+              <label class="active" for="familia">Familia</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="genero" name="genero" type="text" class="validate" value="<%= especie.genero_nombre %>">
+              <label class="active" for="genero">Género</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="especie" name="especie" type="text" class="validate" value="<%= especie.nombre %>">
+              <label class="active" for="especie">Especie</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s4">
+              <select id="color1" name="color1" class="icons">
+                <option value="" disabled selected>None</option>
+                <% colores.each do |color| %>
+                    <option <%= especie.color1_nombre == color.nombre ? 'selected' : '' %> value="<%= color.id %>" data-icon="<%= color.icon %>">
+                      <%= color.nombre.capitalize %>
+                    </option>
+              <% end %>
+              </select>
+              <label for="color1">Color 1</label>
+            </div>
+            <div class="input-field col s4">
+              <select id="color2" name="color2" class="icons">
+                <option value="" disabled selected>None</option>
+                <% colores.each do |color| %>
+                    <option <%= especie.color2_nombre == color.nombre ? 'selected' : '' %> value="<%= color.id %>" data-icon="<%= color.icon %>">
+                      <%= color.nombre.capitalize %>
+                    </option>
+              <% end %>
+              </select>
+              <label for="color2">Color 2</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        Materialize.updateTextFields();
+        $('select').material_select();
+    });
+</script>

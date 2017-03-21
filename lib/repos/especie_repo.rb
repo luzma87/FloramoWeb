@@ -9,9 +9,31 @@ class EspecieRepository
     @db = connection
   end
 
-  # rubocop:disable Metric/MethodLength
   def find_all
-    sql = 'select
+    sql = "#{base_sql} order by genero, nombre"
+
+    especies = []
+    @db.fetch(sql) do |row|
+      especies.push(especie(row))
+    end
+    especies
+  end
+
+  def find_by_genero_and_especie(genero, especie)
+    sql = "#{base_sql} where  e.nombre = '#{especie}' and g.nombre = '#{genero}'"
+    especies = []
+    @db.fetch(sql) do |row|
+      especies.push(especie(row))
+    end
+    p "there are #{especies.size} results!!!" if especies.size > 1
+    especies.first
+  end
+
+  private
+
+  # rubocop:disable Metric/MethodLength
+  def base_sql
+    'select
             e. id,
             g.id genero_id,
             f.id familia_id,
@@ -38,14 +60,7 @@ class EspecieRepository
             left join color c1 on e.color1_id = c1.id
             left join color c2 on e.color2_id = c2.id
             left join forma_vida v1 on e.forma_vida1_id = v1.id
-            left join forma_vida v2 on e.forma_vida2_id = v2.id
-          order by genero, nombre'
-
-    especies = []
-    @db.fetch(sql) do |row|
-      especies.push(especie(row))
-    end
-    especies
+            left join forma_vida v2 on e.forma_vida2_id = v2.id'
   end
 
   def especie(row)

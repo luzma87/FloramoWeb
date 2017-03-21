@@ -1,26 +1,28 @@
 require 'hanami/validations'
 
-class Color
+class Foto
   include Hanami::Validations
 
   def initialize(params)
     @id = params[:id]
-    @nombre = params[:nombre]
+    @especie_id = params[:especie_id]
+    @path = params[:path]
   end
 
   attr_reader :id
-  attr_accessor :nombre
+  attr_accessor :especie
+  attr_accessor :path
 
-  def icon
-    "icons/ic_cl_#{@nombre}.png"
+  def foto_path
+    "encyclopedia/new/#{@path}"
   end
 
   def eql?(other)
-    other && @nombre == other.nombre
+    other && @especie_id == other.especie_id && @path == other.path
   end
 
   def hash
-    @nombre.hash
+    [@especie_id, @path].hash
   end
 
   alias == eql?

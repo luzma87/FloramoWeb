@@ -19,17 +19,14 @@ img.thumbnail:after {
 }
 
 .especie-wrapper {
-    /*cursor: pointer;*/
     display: inline-flex;
     margin: 3px;
     padding: 10px;
-    /*border: solid 1px gray;*/
-    /*border-radius: 10px;*/
     width: 350px;
 }
 
-.especie-wrapper:hover {
-    background-color: #ddd;
+.text-shadow {
+    text-shadow: 2px 2px #666;
 }
 
 .especie-nombre {

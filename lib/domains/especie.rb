@@ -4,6 +4,8 @@ require 'hanami/validations'
 class Especie
   include Hanami::Validations
 
+  @fotos = []
+
   # rubocop:disable Metric/MethodLength
   # rubocop:disable Metric/AbcSize
   def initialize(params)
@@ -36,12 +38,18 @@ class Especie
   attr_accessor :distribucion_en
   attr_accessor :thumbnail
 
+  attr_accessor :fotos
+
   def nombre_cientifico
     "#{genero_nombre} #{@nombre}"
   end
 
   def thumbnail_path
     "encyclopedia/thumbnails/#{@thumbnail}"
+  end
+
+  def default_foto_path
+    @fotos.first.foto_path
   end
 
   def color1_nombre
