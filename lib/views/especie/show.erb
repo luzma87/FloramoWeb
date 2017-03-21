@@ -46,6 +46,31 @@
               <label for="color2">Color 2</label>
             </div>
           </div>
+
+          <div class="row">
+            <div class="input-field col s4">
+              <select id="forma_vida1" name="forma_vida1" class="icons">
+                <option value="" disabled selected>None</option>
+                <% formas_vida.each do |forma_vida| %>
+                    <option <%= especie.forma_vida1_nombre == forma_vida.nombre ? 'selected' : '' %> value="<%= forma_vida.id %>" data-icon="<%= forma_vida.icon %>">
+                      <%= forma_vida.nombre.capitalize %>
+                    </option>
+              <% end %>
+              </select>
+              <label for="forma_vida1">Forma vida 1</label>
+            </div>
+            <div class="input-field col s4">
+              <select id="forma_vida2" name="forma_vida2" class="icons">
+                <option value="" disabled selected>None</option>
+                <% formas_vida.each do |forma_vida| %>
+                    <option <%= especie.forma_vida2_nombre == forma_vida.nombre ? 'selected' : '' %> value="<%= forma_vida.id %>" data-icon="<%= forma_vida.icon %>">
+                      <%= forma_vida.nombre.capitalize %>
+                    </option>
+              <% end %>
+              </select>
+              <label for="forma_vida2">Forma vida 2</label>
+            </div>
+          </div>
         </form>
       </div>
     </div>
