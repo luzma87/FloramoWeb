@@ -7,25 +7,27 @@
       </div>
       <div class="card-content">
         <form action="/especies/save" method="POST">
+          <input type="hidden" name="id" value="<%= especie.id %>">
           <div class="row">
             <div class="input-field col s4">
-              <input type="text" id="familia" name="familia" class="autocomplete validate" value="<%= especie.familia_nombre %>">
-              <label for="familia">Familia</label>
+              <input type="text" id="familia_nombre" name="familia_nombre" class="autocomplete validate" value="<%= especie.familia_nombre %>">
+              <label for="familia_nombre">Familia</label>
             </div>
             <div class="input-field col s4">
-              <input id="genero" name="genero" type="text" class="autocomplete validate" value="<%= especie.genero_nombre %>">
-              <label class="active" for="genero">Género</label>
+              <input id="genero_nombre" name="genero_nombre" type="text" class="autocomplete validate" value="<%= especie.genero_nombre %>">
+              <label class="active" for="genero_nombre">Género</label>
             </div>
             <div class="input-field col s4">
-              <input id="especie" name="especie" type="text" class="validate" value="<%= especie.nombre %>">
-              <label class="active" for="especie">Especie</label>
+              <input id="nombre" name="nombre" type="text" class="validate" value="<%= especie.nombre %>">
+              <label class="active" for="nombre">Especie</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s4">
               <select id="color1" name="color1" class="icons">
-                <option value="" disabled selected>None</option>
+                <option value="" disabled selected>Select</option>
+                <option value="" selected>None</option>
                 <% colores.each do |color| %>
                     <option <%= especie.color1_nombre == color.nombre ? 'selected' : '' %> value="<%= color.id %>" data-icon="<%= color.icon %>">
                       <%= color.nombre.capitalize %>
@@ -36,7 +38,8 @@
             </div>
             <div class="input-field col s4">
               <select id="color2" name="color2" class="icons">
-                <option value="" disabled selected>None</option>
+                <option value="" disabled selected>Select</option>
+                <option value="" selected>None</option>
                 <% colores.each do |color| %>
                     <option <%= especie.color2_nombre == color.nombre ? 'selected' : '' %> value="<%= color.id %>" data-icon="<%= color.icon %>">
                       <%= color.nombre.capitalize %>
@@ -50,7 +53,8 @@
           <div class="row">
             <div class="input-field col s4">
               <select id="forma_vida1" name="forma_vida1" class="icons">
-                <option value="" disabled selected>None</option>
+                <option value="" disabled selected>Select</option>
+                <option value="" selected>None</option>
                 <% formas_vida.each do |forma_vida| %>
                     <option <%= especie.forma_vida1_nombre == forma_vida.nombre ? 'selected' : '' %> value="<%= forma_vida.id %>" data-icon="<%= forma_vida.icon %>">
                       <%= forma_vida.nombre.capitalize %>
@@ -61,7 +65,8 @@
             </div>
             <div class="input-field col s4">
               <select id="forma_vida2" name="forma_vida2" class="icons">
-                <option value="" disabled selected>None</option>
+                <option value="" disabled selected>Select</option>
+                <option value="" selected>None</option>
                 <% formas_vida.each do |forma_vida| %>
                     <option <%= especie.forma_vida2_nombre == forma_vida.nombre ? 'selected' : '' %> value="<%= forma_vida.id %>" data-icon="<%= forma_vida.icon %>">
                       <%= forma_vida.nombre.capitalize %>

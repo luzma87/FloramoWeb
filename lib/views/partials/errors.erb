@@ -1,0 +1,7 @@
+<% unless errors.nil? || errors.empty? %>
+<ul>
+  <% errors.each do |error| %>
+  <li><%= error %></li>
+  <% end %>
+</ul>
+<% end %>

@@ -77,11 +77,11 @@ class Especie
   end
 
   def eql?(other)
-    other && nombre_cientifico == other.nombre_cientifico && @familia == other.familia
+    other && nombre_cientifico == other.nombre_cientifico
   end
 
   def hash
-    [nombre_cientifico, @familia].hash
+    [nombre_cientifico].hash
   end
 
   alias == eql?
@@ -95,4 +95,25 @@ class Especie
     end
     hash
   end
+
+  def to_save
+    hash = {}
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@thumbnail']
+      next if ignored_fields.include? var
+
+      field = var.to_s.delete('@')
+
+      case field
+      when 'genero' then hash[:genero_id] = @genero.id
+      when 'color1' then hash[:color1_id] = @color1 == '' ? nil : @color1
+      when 'color2' then hash[:color2_id] = @color2 == '' ? nil : @color2
+      when 'forma_vida1' then hash[:forma_vida1_id] = @forma_vida1 == '' ? nil : @forma_vida1
+      when 'forma_vida2' then hash[:forma_vida2_id] = @forma_vida2 == '' ? nil : @forma_vida2
+      else hash[field] = instance_variable_get(var)
+      end
+    end
+    hash
+  end
+
 end

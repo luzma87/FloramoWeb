@@ -1,0 +1,17 @@
+<% [:info, :danger, :success, :warning].each do |type| %>
+    <% if flash.has?(type) %>
+        <div class="row">
+          <div class="col s12">
+            <div id="alert-<%= type %>" class="card-panel card-<%= type %>">
+              <i class="fa fa-2x fa-<%= type == :info ? 'info-circle' :
+                                            type == :danger ? 'warning' :
+                                                type == :success ? 'check-circle' :
+                                                    type == :warning ? 'exclamation-circle' : '' %>">
+              </i>
+              <%= flash[type] %>
+              <%= erb :'/partials/errors', layout: false, locals: { errors: flash[:errors] } %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end %>

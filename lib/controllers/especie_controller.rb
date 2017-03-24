@@ -28,18 +28,19 @@ class EspecieController < FloramoApp
     forma_vida_repo = FormaVidaRepository.new(pg_connection)
 
     erb :'/especie/show', locals: {
-      especie: especie,
-      colores: color_repo.find_all,
-      formas_vida: forma_vida_repo.find_all,
-      familias: familia_service.find_all_for_autocomplete,
-      generos: genero_service.find_all_for_autocomplete
+        especie: especie,
+        colores: color_repo.find_all,
+        formas_vida: forma_vida_repo.find_all,
+        familias: familia_service.find_all_for_autocomplete,
+        generos: genero_service.find_all_for_autocomplete
     }
   end
 
   post '/save' do
-    p '------------------------------------------------------'
-    p params
-    p '------------------------------------------------------'
-    # redirect '/especie'
+    service = EspecieService.new(pg_connection)
+    saved = service.save(params)
+    flash[:warning] = 'ERROR' unless saved
+    flash[:success] = 'OK'
+    redirect '/especies'
   end
 end

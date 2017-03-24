@@ -10,7 +10,7 @@ class EspecieRepository
   end
 
   def find_all
-    sql = "#{base_sql} order by genero, nombre"
+    sql = "#{base_select_sql} order by genero, nombre"
 
     especies = []
     @db.fetch(sql) do |row|
@@ -20,19 +20,23 @@ class EspecieRepository
   end
 
   def find_by_genero_and_especie(genero, especie)
-    sql = "#{base_sql} where  e.nombre = '#{especie}' and g.nombre = '#{genero}'"
+    sql = "#{base_select_sql} where  e.nombre = '#{especie}' and g.nombre = '#{genero}'"
     especies = []
     @db.fetch(sql) do |row|
       especies.push(especie(row))
     end
-    p "there are #{especies.size} results!!!" if especies.size > 1
+    p "especie_repo.find_by_genero_and_especie has #{especies.size} results!!!" if especies.size > 1
     especies.first
+  end
+
+  def save(especie)
+    @db[:especie].filter('id = ?', especie.id).update(especie.to_save)
   end
 
   private
 
   # rubocop:disable Metric/MethodLength
-  def base_sql
+  def base_select_sql
     'select
             e. id,
             g.id genero_id,

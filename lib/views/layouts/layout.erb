@@ -32,6 +32,7 @@
     </div>
 
     <div class="container main">
+      <%= erb :'/partials/flash', layout: false, locals: { flash: flash } %>
       <%= yield %>
     </div>
   </body>
