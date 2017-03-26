@@ -33,5 +33,4 @@ class EspecieService
     especie = Especie.new(params_especie)
     @repo.save(especie)
   end
-
 end

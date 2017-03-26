@@ -6,8 +6,8 @@ class Especie
 
   @fotos = []
 
-  # rubocop:disable Metric/MethodLength
-  # rubocop:disable Metric/AbcSize
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def initialize(params)
     @id = params[:id]
     @nombre = params[:nombre]
@@ -96,6 +96,8 @@ class Especie
     hash
   end
 
+  # rubocop: disable Metrics/CyclomaticComplexity
+  # rubocop: disable Metrics/PerceivedComplexity:
   def to_save
     hash = {}
     instance_variables.each do |var|
@@ -115,5 +117,4 @@ class Especie
     end
     hash
   end
-
 end

@@ -6,7 +6,7 @@ class FamiliaService
   end
 
   def find_all_for_autocomplete
-    familias = @repo.find_all.map { |f| f.nombre }
+    familias = @repo.find_all.map(&:nombre)
     json = '{'
     familias.each do |familia|
       json += "'#{familia}': null,"

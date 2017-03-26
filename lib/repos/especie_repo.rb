@@ -35,7 +35,7 @@ class EspecieRepository
 
   private
 
-  # rubocop:disable Metric/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def base_select_sql
     'select
             e. id,

@@ -16,12 +16,7 @@ class GeneroRepository
   end
 
   def find_by_name(name)
-    sql = "select
-            g.id,
-            g.nombre,
-            f.id familia_id,
-            f.nombre familia
-            from genero g
+    sql = "select g.id, g.nombre, f.id familia_id, f.nombre familia from genero g
           inner join familia f on g.familia_id = f.id
           where g.nombre = '#{name}'"
     generos = []

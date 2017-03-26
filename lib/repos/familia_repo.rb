@@ -18,5 +18,4 @@ class FamiliaRepository
     results = @db.where(nombre: name)
     Familia.new(results.first)
   end
-
 end
