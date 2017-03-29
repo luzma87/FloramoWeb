@@ -17,7 +17,7 @@ class EspecieController < FloramoApp
     erb :'/especie/index', locals: { especies: especies }
   end
 
-  get '/:nombre_cientifico', auth: :admin do
+  get '/edit/:nombre_cientifico', auth: :admin do
     nombre_cientifico = params[:nombre_cientifico]
 
     service = EspecieService.new(pg_connection)
@@ -27,7 +27,7 @@ class EspecieController < FloramoApp
     color_repo = ColorRepository.new(pg_connection)
     forma_vida_repo = FormaVidaRepository.new(pg_connection)
 
-    erb :'/especie/show', locals: {
+    erb :'/especie/edit', locals: {
       especie: especie,
       colores: color_repo.find_all,
       formas_vida: forma_vida_repo.find_all,
@@ -36,9 +36,31 @@ class EspecieController < FloramoApp
     }
   end
 
+  get '/create', auth: :admin do
+    familia_service = FamiliaService.new(pg_connection)
+    color_repo = ColorRepository.new(pg_connection)
+    forma_vida_repo = FormaVidaRepository.new(pg_connection)
+
+    erb :'/especie/create', locals: {
+      especie: Especie.new({}),
+      colores: color_repo.find_all,
+      formas_vida: forma_vida_repo.find_all,
+      familias: familia_service.find_all_for_autocomplete,
+      generos: {}
+    }
+  end
+
   post '/save' do
     service = EspecieService.new(pg_connection)
     saved = service.save(params)
+    flash[:warning] = 'ERROR' unless saved
+    flash[:success] = 'OK'
+    redirect '/especies'
+  end
+
+  post '/create', auth: :admin do
+    service = EspecieService.new(pg_connection)
+    saved = service.create(params)
     flash[:warning] = 'ERROR' unless saved
     flash[:success] = 'OK'
     redirect '/especies'

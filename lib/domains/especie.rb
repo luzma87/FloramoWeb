@@ -49,7 +49,7 @@ class Especie
   end
 
   def default_foto_path
-    @fotos.first.foto_path
+    @fotos.first.foto_path unless @fotos.empty?
   end
 
   def color1_nombre
@@ -69,11 +69,11 @@ class Especie
   end
 
   def genero_nombre
-    @genero.nombre
+    @genero.nombre if @genero
   end
 
   def familia_nombre
-    @genero.familia_nombre
+    @genero.familia_nombre if @genero
   end
 
   def eql?(other)
@@ -101,7 +101,7 @@ class Especie
   def to_save
     hash = {}
     instance_variables.each do |var|
-      ignored_fields = [:'@errors', :'@thumbnail']
+      ignored_fields = [:'@errors', :'@thumbnail', :'@id']
       next if ignored_fields.include? var
 
       field = var.to_s.delete('@')

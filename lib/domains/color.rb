@@ -12,7 +12,7 @@ class Color
   attr_accessor :nombre
 
   def icon
-    "icons/ic_cl_#{@nombre}.png"
+    "../icons/ic_cl_#{@nombre}.png"
   end
 
   def eql?(other)

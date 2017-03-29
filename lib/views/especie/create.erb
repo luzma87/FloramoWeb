@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-content">
+        <form action="/especies/create" method="POST">
+
+          <%= erb :'/especie/partials/_especie_form', layout: false,
+                  locals: { especie: especie, colores: colores, formas_vida: formas_vida, familias: familias, generos: generos } %>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button type="submit" class="waves-effect waves-light btn green ">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

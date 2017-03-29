@@ -20,6 +20,18 @@ class EspecieService
   end
 
   def save(params_especie)
+    especie = prepare(params_especie)
+    @repo.save(especie) if especie
+  end
+
+  def create(params_especie)
+    especie = prepare(params_especie)
+    @repo.insert(especie) if especie
+  end
+
+  private
+
+  def prepare(params_especie)
     familia_nombre = params_especie[:familia_nombre]
     genero_nombre = params_especie[:genero_nombre]
 
@@ -30,7 +42,6 @@ class EspecieService
 
     familias_equal = familia == genero.familia
     return false unless familias_equal
-    especie = Especie.new(params_especie)
-    @repo.save(especie)
+    Especie.new(params_especie)
   end
 end

@@ -1,5 +1,5 @@
 <% especies.each do |especie| %>
-    <a href="/especies/<%= especie.genero_nombre %>_<%= especie.nombre %>" class="hoverable card especie-wrapper waves-effect waves-teal">
+    <a href="/especies/edit/<%= especie.genero_nombre %>_<%= especie.nombre %>" class="hoverable card especie-wrapper waves-effect waves-teal">
       <img src="<%= especie.thumbnail_path %>" class="responsive-img thumbnail">
       <div class="especie-info">
         <div class="especie-nombre">

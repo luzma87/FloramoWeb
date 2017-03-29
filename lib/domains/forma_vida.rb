@@ -12,7 +12,7 @@ class FormaVida
   attr_accessor :nombre
 
   def icon
-    "icons/ic_fv_#{@nombre}.png"
+    "../icons/ic_fv_#{@nombre}.png"
   end
 
   def eql?(other)

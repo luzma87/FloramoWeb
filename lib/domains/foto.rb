@@ -14,7 +14,7 @@ class Foto
   attr_accessor :path
 
   def foto_path
-    "encyclopedia/full_size/#{@path}"
+    "../encyclopedia/full_size/#{@path}"
   end
 
   def eql?(other)

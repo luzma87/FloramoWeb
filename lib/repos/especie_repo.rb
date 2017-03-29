@@ -34,6 +34,10 @@ class EspecieRepository
     @db.filter('id = ?', especie.id).update(especie.to_save)
   end
 
+  def insert(especie)
+    @db.insert(especie.to_save)
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength
