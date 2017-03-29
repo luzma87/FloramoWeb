@@ -12,5 +12,6 @@ map('/') { run FloramoApp }
 map('/login') { run LoginController }
 
 map('/especies') { run EspecieController }
+map('/generos') { run GeneroController }
 
 map('/error') { run ErrorController }

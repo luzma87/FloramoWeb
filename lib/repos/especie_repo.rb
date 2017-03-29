@@ -6,14 +6,15 @@ require_relative '../domains/forma_vida'
 
 class EspecieRepository
   def initialize(connection)
-    @db = connection
+    @connection = connection
+    @db = connection[:especie]
   end
 
   def find_all
     sql = "#{base_select_sql} order by genero, nombre"
 
     especies = []
-    @db.fetch(sql) do |row|
+    @connection.fetch(sql) do |row|
       especies.push(especie(row))
     end
     especies
@@ -22,7 +23,7 @@ class EspecieRepository
   def find_by_genero_and_especie(genero, especie)
     sql = "#{base_select_sql} where  e.nombre = '#{especie}' and g.nombre = '#{genero}'"
     especies = []
-    @db.fetch(sql) do |row|
+    @connection.fetch(sql) do |row|
       especies.push(especie(row))
     end
     p "especie_repo.find_by_genero_and_especie has #{especies.size} results!!!" if especies.size > 1
@@ -30,7 +31,7 @@ class EspecieRepository
   end
 
   def save(especie)
-    @db[:especie].filter('id = ?', especie.id).update(especie.to_save)
+    @db.filter('id = ?', especie.id).update(especie.to_save)
   end
 
   private

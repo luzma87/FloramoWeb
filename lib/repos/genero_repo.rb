@@ -8,11 +8,11 @@ class GeneroRepository
 
   def find_all
     results = @db.order(:nombre)
-    familias = []
+    generos = []
     results.each do |row|
-      familias.push(Genero.new(row))
+      generos.push(Genero.new(row))
     end
-    familias
+    generos
   end
 
   def find_by_name(name)
@@ -25,6 +25,16 @@ class GeneroRepository
     end
     p "genero_repo.find_by_name has #{generos.size} results!!!" if generos.size > 1
     generos.first
+  end
+
+  def find_by_familia(name)
+    sql = "SELECT id, nombre from genero
+            WHERE familia_id = (SELECT id FROM familia WHERE nombre = '#{name}')"
+    generos = []
+    @connection.fetch(sql) do |row|
+      generos.push(genero(row))
+    end
+    generos
   end
 
   private

@@ -32,7 +32,7 @@ class EspecieController < FloramoApp
       colores: color_repo.find_all,
       formas_vida: forma_vida_repo.find_all,
       familias: familia_service.find_all_for_autocomplete,
-      generos: genero_service.find_all_for_autocomplete
+      generos: genero_service.find_by_familia_for_autocomplete(especie.familia_nombre)
     }
   end
 

@@ -164,13 +164,32 @@
             $('.carousel').carousel('next');
         });
 
-        $('#familia').autocomplete({
-            data: <%= familias %>
-        });
+        initFamiliaAutocomplete(<%= familias %>);
 
-        $('#genero').autocomplete({
-            data: <%= generos %>
-        });
+        initGenerosAutocomplete(<%= generos %>);
+
+        function initGenerosAutocomplete(generos) {
+            $('#genero_nombre').autocomplete({
+                data      : generos,
+                minLength : 1
+            });
+        }
+
+        function initFamiliaAutocomplete(familias) {
+            $('#familia_nombre').autocomplete({
+                data           : familias,
+                onAutocomplete : function (val) {
+                    $.ajax({
+                        method  : "GET",
+                        url     : "/generos/familia/" + val,
+                        success : function (response) {
+                            initGenerosAutocomplete($.parseJSON(response));
+                        }
+                    });
+                },
+                minLength      : 1
+            });
+        }
 
     });
 </script>
