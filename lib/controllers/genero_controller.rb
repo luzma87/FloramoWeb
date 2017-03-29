@@ -9,5 +9,4 @@ class GeneroController < FloramoApp
     service = GeneroService.new(pg_connection)
     service.find_by_familia_for_autocomplete(params[:familia_nombre])
   end
-
 end
