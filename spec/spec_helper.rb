@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 
-require 'lib/tasks/db'
+require 'app/tasks/db'
 require 'database_cleaner'
 
 RSpec.configure do |config|

@@ -1,1 +1,1 @@
-require './lib/tasks/db'
+require './app/tasks/db'

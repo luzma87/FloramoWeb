@@ -20,7 +20,7 @@ class FloramoApp < Sinatra::Application
   use Rack::Flash, sweep: true
 
   # set folder for templates to ../views, but make the path absolute
-  set :views, File.expand_path('../lib/views', __FILE__)
+  set :views, File.expand_path('../app/views', __FILE__)
   set :erb, layout: :'layouts/layout'
 
   # don't enable logging when running tests

@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
 # pull in the helpers and controllers
-Dir.glob('./lib/{helpers,controllers,api}/*.rb').each { |file| require file }
+Dir.glob('./app/{helpers,controllers,api}/*.rb').each { |file| require file }
 
 not_found do
   erb :'/error/404', layout: :'layouts/login'
