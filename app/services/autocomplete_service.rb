@@ -4,7 +4,7 @@ class AutocompleteService
     list.each do |element|
       json += "\"#{element}\": null,"
     end
-    json = json.chomp(',')
+    json = json.chop
     json += '}'
   end
 end

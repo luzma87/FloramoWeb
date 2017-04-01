@@ -24,7 +24,7 @@ class Especie
     @thumbnail = params[:thumbnail]
   end
 
-  attr_reader :id
+  attr_accessor :id
   attr_accessor :nombre
   attr_accessor :genero
   attr_accessor :id_tropicos
@@ -101,7 +101,7 @@ class Especie
   def to_save
     hash = {}
     instance_variables.each do |var|
-      ignored_fields = [:'@errors', :'@thumbnail', :'@id']
+      ignored_fields = [:'@errors', :'@id']
       next if ignored_fields.include? var
 
       field = var.to_s.delete('@')

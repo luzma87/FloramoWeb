@@ -13,4 +13,15 @@ class FotoRepository
     end
     fotos
   end
+
+  def save(foto)
+    @db.filter('id = ?', foto.id).update(foto.to_save)
+    foto
+  end
+
+  def insert(foto)
+    @db.insert(foto.to_save)
+    foto
+  end
+
 end

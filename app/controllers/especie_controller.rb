@@ -5,6 +5,7 @@ require_relative '../repos/forma_vida_repo'
 require_relative '../services/especie_service'
 require_relative '../services/familia_service'
 require_relative '../services/genero_service'
+require_relative '../services/foto_service'
 require_relative 'connection_helper'
 
 class EspecieController < FloramoApp
@@ -54,6 +55,8 @@ class EspecieController < FloramoApp
     service = EspecieService.new(pg_connection)
     saved = service.save(params)
     flash[:warning] = 'ERROR' unless saved
+    foto_service = FotoService.new(pg_connection)
+    foto_service.save_batch(saved, params)
     flash[:success] = 'OK'
     redirect '/especies'
   end
@@ -62,6 +65,8 @@ class EspecieController < FloramoApp
     service = EspecieService.new(pg_connection)
     saved = service.create(params)
     flash[:warning] = 'ERROR' unless saved
+    foto_service = FotoService.new(pg_connection)
+    foto_service.save_batch(saved, params)
     flash[:success] = 'OK'
     redirect '/especies'
   end

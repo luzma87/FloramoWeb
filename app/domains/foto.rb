@@ -36,4 +36,15 @@ class Foto
     end
     hash
   end
+
+  def to_save
+    hash = {}
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@id']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      hash[field] = instance_variable_get(var)
+    end
+    hash
+  end
 end

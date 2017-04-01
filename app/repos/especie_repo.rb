@@ -32,10 +32,13 @@ class EspecieRepository
 
   def save(especie)
     @db.filter('id = ?', especie.id).update(especie.to_save)
+    especie
   end
 
   def insert(especie)
-    @db.insert(especie.to_save)
+    id = @db.insert(especie.to_save)
+    especie.id = id
+    especie
   end
 
   private

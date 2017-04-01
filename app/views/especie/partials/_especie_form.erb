@@ -1,4 +1,12 @@
 <input type="hidden" name="id" value="<%= especie.id %>">
+
+<div class="row">
+  <div class="input-field col s6">
+    <input type="text" id="thumbnail" name="thumbnail" class="validate" value="<%= especie.thumbnail %>">
+    <label for="thumbnail">Thumbnail</label>
+  </div>
+</div>
+
 <div class="row">
   <div class="input-field col s4">
     <input type="text" id="familia_nombre" name="familia_nombre" class="autocomplete validate" value="<%= especie.familia_nombre %>">
@@ -68,46 +76,73 @@
   </div>
 </div>
 
-<ul class="collapsible popout" data-collapsible="accordion">
-  <li>
-    <div class="collapsible-header">
-      <i class="fa fa-language"></i> Español
-    </div>
-    <div class="collapsible-body">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="descripcion_es" name="descripcion_es" class="materialize-textarea"><%= especie.descripcion_es %></textarea>
-          <label for="descripcion_es">Descripción</label>
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card">
+      <div class="card-content deep-purple lighten-4">
+        <span class="card-title"> <i class="fa fa-language"></i> Español</span>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="descripcion_es" name="descripcion_es" class="materialize-textarea"><%= especie.descripcion_es %></textarea>
+            <label for="descripcion_es">Descripción</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="distribucion_es" name="distribucion_es" class="materialize-textarea"><%= especie.distribucion_es %></textarea>
-          <label for="distribucion_es">Distribución</label>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <div class="collapsible-header">
-      <i class="fa fa-language"></i> English
-    </div>
-    <div class="collapsible-body">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="descripcion_en" name="descripcion_en" class="materialize-textarea"><%= especie.descripcion_en %></textarea>
-          <label for="descripcion_en">Description</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="distribucion_en" name="distribucion_en" class="materialize-textarea"><%= especie.distribucion_en %></textarea>
-          <label for="distribucion_en">Distribution</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="distribucion_es" name="distribucion_es" class="materialize-textarea"><%= especie.distribucion_es %></textarea>
+            <label for="distribucion_es">Distribución</label>
+          </div>
         </div>
       </div>
     </div>
-  </li>
-</ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card">
+      <div class="card-content purple lighten-4">
+        <span class="card-title"> <i class="fa fa-language"></i> English</span>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="descripcion_en" name="descripcion_en" class="materialize-textarea"><%= especie.descripcion_en %></textarea>
+            <label for="descripcion_en">Description</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="distribucion_en" name="distribucion_en" class="materialize-textarea"><%= especie.distribucion_en %></textarea>
+            <label for="distribucion_en">Distribuction</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card">
+      <div class="card-content pink lighten-4">
+        <span class="card-title">
+          <i class="fa fa-picture-o"></i> Fotos
+          <a class="btn-floating waves-effect waves-light green add-foto"><i class="fa fa-plus"></i></a>
+        </span>
+        <div class="row fotos-container">
+          <% if especie.fotos %>
+              <% especie.fotos.each do |foto| %>
+                  <div class="input-field col s4">
+                    <input type="text" id="foto_<%= foto.id %>" name="foto_<%= foto.id %>" class="validate" value="<%= foto.path %>">
+                    <label for="foto_<%= foto.id %>">Foto</label>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -117,6 +152,25 @@
         initFamiliaAutocomplete(<%= familias %>);
 
         initGenerosAutocomplete(<%= generos %>);
+
+        $(".add-foto").click(function (event) {
+            event.preventDefault();
+            addFoto();
+        });
+
+        function addFoto() {
+            var $container = $(".fotos-container");
+            var random = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+
+            var $fieldContainer = $('<div class="input-field col s4"></div>');
+            var $field = $('<input type="text" id="foto_i_' + random + '" name="foto_i_' + random + '" class="validate">');
+            var $label = $('<label for="foto_i_' + random + '">Foto</label>');
+
+            $fieldContainer.append($field);
+            $fieldContainer.append($label);
+
+            $container.append($fieldContainer);
+        }
 
         function initGenerosAutocomplete(generos) {
             $('#genero_nombre').autocomplete({
