@@ -34,4 +34,17 @@ class Color
     end
     hash
   end
+
+  def to_sql
+    fields = ''
+    values = ''
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      fields += "#{field}, "
+      values += "\\\"#{instance_variable_get(var)}\\\", "
+    end
+    "INSERT INTO color (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+  end
 end

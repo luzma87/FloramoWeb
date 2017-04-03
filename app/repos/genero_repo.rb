@@ -10,7 +10,7 @@ class GeneroRepository
     results = @db.order(:nombre)
     generos = []
     results.each do |row|
-      generos.push(Genero.new(row))
+      generos.push(genero(row))
     end
     generos
   end

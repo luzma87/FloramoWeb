@@ -29,6 +29,11 @@ class EspecieService
     @repo.insert(especie) if especie
   end
 
+  def java_sqls
+    especies = @repo.find_all
+    ListsService.new.java_sqls(especies)
+  end
+
   private
 
   def prepare(params_especie)

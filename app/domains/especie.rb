@@ -117,4 +117,25 @@ class Especie
     end
     hash
   end
+
+  def to_sql
+    fields = ''
+    values = ''
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+
+      fields += "#{field}, "
+      values += case field
+                when 'genero' then "\\\"#{@genero.id}\\\", "
+                when 'color1' then "\\\"#{@color1 ? @color1.id : nil}\\\", "
+                when 'color2' then "\\\"#{@color2 ? @color2.id : nil}\\\", "
+                when 'forma_vida1' then "\\\"#{@forma_vida1 ? @forma_vida1.id : nil}\\\", "
+                when 'forma_vida2' then "\\\"#{@forma_vida2 ? @forma_vida2.id : nil}\\\", "
+                else "\\\"#{instance_variable_get(var)}\\\", "
+                end
+    end
+    "INSERT INTO especie (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+  end
 end

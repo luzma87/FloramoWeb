@@ -36,4 +36,22 @@ class Genero
     end
     hash
   end
+
+  def to_sql
+    fields = ''
+    values = ''
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+
+      fields += "#{field}, "
+      values += if field == 'familia'
+                  "\\\"#{@familia.id}\\\", "
+                else
+                  "\\\"#{instance_variable_get(var)}\\\", "
+                end
+    end
+    "INSERT INTO genero (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+  end
 end
