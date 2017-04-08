@@ -11,6 +11,12 @@ class MigracionController < FloramoApp
     erb :'/migracion/index', locals: { sql: sql }
   end
 
+  get '/new', auth: :admin do
+    service = MigracionService.new(pg_connection)
+    sql = service.new_sqls
+    erb :'/migracion/index', locals: { sql: sql }
+  end
+
   get '/', auth: :admin do
     service = MigracionService.new(pg_connection)
     sql = service.all_sqls

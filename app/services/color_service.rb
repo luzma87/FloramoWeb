@@ -6,8 +6,9 @@ class ColorService
     @repo = ColorRepository.new(connection)
   end
 
-  def java_sqls
-    colors = @repo.find_all
-    ListsService.new.java_sqls(colors)
+  def java_all_sqls
+    lists_service = ListsService.new
+    colors = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('Colores', colors)
   end
 end

@@ -5,7 +5,7 @@ class ListsService
       json += "\"#{element}\": null,"
     end
     json = json.chop
-    json += '}'
+    json + '}'
   end
 
   def java_sqls(list)
@@ -14,5 +14,11 @@ class ListsService
       sql += "&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(\"#{element.to_sql}\");<br/>"
     end
     sql
+  end
+
+  def sqls_function(table_name, sqls)
+    sql = "function insert#{table_name}() {<br/>"
+    sql += sqls
+    sql + '}<br/><br/>'
   end
 end

@@ -16,8 +16,9 @@ class GeneroService
     ListsService.new.for_autocomplete(generos)
   end
 
-  def java_sqls
-    generos = @repo.find_all
-    ListsService.new.java_sqls(generos)
+  def java_all_sqls
+    lists_service = ListsService.new
+    generos = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('Genero', generos)
   end
 end

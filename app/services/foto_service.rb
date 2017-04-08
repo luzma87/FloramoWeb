@@ -19,6 +19,12 @@ class FotoService
     end
   end
 
+  def java_all_sqls
+    lists_service = ListsService.new
+    fotos = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('Foto', fotos)
+  end
+
   private
 
   def insert_foto(args, path)

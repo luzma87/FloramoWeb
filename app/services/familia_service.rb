@@ -16,8 +16,9 @@ class FamiliaService
     ListsService.new.for_autocomplete(familias)
   end
 
-  def java_sqls
-    familias = @repo.find_all
-    ListsService.new.java_sqls(familias)
+  def java_all_sqls
+    lists_service = ListsService.new
+    familias = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('Familias', familias)
   end
 end

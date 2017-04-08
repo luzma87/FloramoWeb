@@ -29,9 +29,10 @@ class EspecieService
     @repo.insert(especie) if especie
   end
 
-  def java_sqls
-    especies = @repo.find_all
-    ListsService.new.java_sqls(especies)
+  def java_all_sqls
+    lists_service = ListsService.new
+    especies = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('Especies', especies)
   end
 
   private

@@ -6,8 +6,9 @@ class FormaVidaService
     @repo = FormaVidaRepository.new(connection)
   end
 
-  def java_sqls
-    formas_vida = @repo.find_all
-    ListsService.new.java_sqls(formas_vida)
+  def java_all_sqls
+    lists_service = ListsService.new
+    formas_vida = lists_service.java_sqls(@repo.find_all)
+    lists_service.sqls_function('FormasVida', formas_vida)
   end
 end
