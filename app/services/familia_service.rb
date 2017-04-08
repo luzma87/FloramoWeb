@@ -25,7 +25,7 @@ class FamiliaService
   def java_sqls_since(date)
     lists_service = ListsService.new
     familias = @repo.find_since(date)
-    lists_service.java_delete_sqls(familias, 'familia')
-    lists_service.java_insert_sqls(familias)
+    sqls = lists_service.java_delete_sqls(familias, 'familia')
+    sqls + lists_service.java_insert_sqls(familias)
   end
 end
