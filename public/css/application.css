@@ -52,3 +52,7 @@ img.especie-detalle {
     display: none;
 }
 
+.add-element-button {
+    position: fixed;
+    left: 150px;
+}

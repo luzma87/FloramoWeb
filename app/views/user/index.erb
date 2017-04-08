@@ -1,0 +1,47 @@
+<a href="/users/create" class="btn-floating btn-large waves-effect waves-light green add-element-button">
+  <i class="fa fa-plus"></i>
+</a>
+<div class="row">
+  <% users.each do |user| %>
+      <div class="col s3">
+        <div class="card" style="min-height: 200px">
+          <div class="card-content">
+            <%= user.username %>
+          </div>
+          <div class="card-action">
+            <form action="/users/delete" method="POST">
+              <input type="hidden" name="id" value="<%= user.id %>">
+              <button type="submit" class="btn red lighten-2">
+                <i class="fa fa-trash-o"></i>
+              </button>
+              <a href="#" class="btn blue lighten-2 activator">
+                <i class="fa fa-pencil"></i>
+              </a>
+            </form>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4" style="font-size: 15px;">
+              Cambiar password <i class="material-icons right">close</i></span>
+            <form action="/users/save" method="POST">
+              <input type="hidden" name="id" value="<%= user.id %>">
+              <input type="hidden" name="username" value="<%= user.username %>">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="fa fa-lock prefix"></i>
+                  <input id="password" name="password" type="password" class="validate">
+                  <label for="password">Nuevo Password</label>
+                </div>
+              </div>
+              <div class="row" style="margin-top: -28px;">
+                <div class="input-field col s12">
+                  <button type="submit" class="btn blue lighten-2">
+                    <i class="fa fa-floppy-o"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

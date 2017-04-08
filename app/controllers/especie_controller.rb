@@ -44,14 +44,12 @@ class EspecieController < FloramoApp
 
     erb :'/especie/create', locals: {
       especie: Especie.new({}),
-      colores: color_repo.find_all,
-      formas_vida: forma_vida_repo.find_all,
-      familias: familia_service.find_all_for_autocomplete,
-      generos: {}
+      colores: color_repo.find_all, formas_vida: forma_vida_repo.find_all,
+      familias: familia_service.find_all_for_autocomplete, generos: {}
     }
   end
 
-  post '/save' do
+  post '/save', auth: :admin do
     service = EspecieService.new(pg_connection)
     saved = service.save(params)
     flash[:warning] = 'ERROR' unless saved

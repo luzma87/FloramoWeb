@@ -14,5 +14,6 @@ map('/login') { run LoginController }
 map('/especies') { run EspecieController }
 map('/generos') { run GeneroController }
 map('/migraciones') { run MigracionController }
+map('/users') { run UserController }
 
 map('/error') { run ErrorController }

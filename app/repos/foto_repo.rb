@@ -23,5 +23,4 @@ class FotoRepository
     @db.insert(foto.to_save)
     foto
   end
-
 end

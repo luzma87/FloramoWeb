@@ -7,27 +7,30 @@ class FotoService
 
   def save_batch(especie, params)
     params.keys.each do |param_key|
+      args = {}
+      args[:especie_id] = especie.id.to_s
 
-      args = Hash.new
-      args[:especie_id] = 'pepe'
-      args[:especie_id] = "#{especie.id}"
-
-
-      param_key.match(/^foto_i_\d/) do |match|
-        args[:path] = params[param_key]
-        foto = Foto.new(args)
-        @repo.insert(foto)
-        # p "insert #{params[param_key]}"
-      end
+      param_key.match(/^foto_i_\d/) { |_match| insert_foto(args, params[param_key]) }
 
       param_key.match(/^foto_\d+/) do |match|
-        args[:id] = match.to_s.delete('foto_')
-        args[:path] = params[param_key]
-        foto = Foto.new(args)
-        @repo.save(foto)
-        # p "update #{id} #{params[param_key]}"
+        foto_id = match.to_s.delete('foto_')
+        update_foto(args, foto_id, params[param_key])
       end
     end
+  end
 
+  private
+
+  def insert_foto(args, path)
+    args[:path] = path
+    foto = Foto.new(args)
+    @repo.insert(foto)
+  end
+
+  def update_foto(args, id, path)
+    args[:id] = id
+    args[:path] = path
+    foto = Foto.new(args)
+    @repo.save(foto)
   end
 end

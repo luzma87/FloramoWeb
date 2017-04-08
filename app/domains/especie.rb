@@ -1,6 +1,7 @@
 require 'hanami/validations'
 
 # noinspection RubyTooManyInstanceVariablesInspection
+# rubocop:disable Metrics/ClassLength
 class Especie
   include Hanami::Validations
 

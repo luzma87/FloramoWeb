@@ -13,7 +13,28 @@ class UserRepository
     user
   end
 
+  def find_all
+    results = @db.order(:username)
+    users = []
+    results.each do |row|
+      users.push(User.new(row))
+    end
+    users
+  end
+
   def save(user)
-    @db.insert(user.to_hash)
+    @db.filter('id = ?', user.id).update(user.to_save)
+    user
+  end
+
+  def insert(user)
+    id = @db.insert(user.to_save)
+    user.id = id
+    user
+  end
+
+  def delete(user)
+    id = user.id
+    @db.filter(id: id).delete
   end
 end

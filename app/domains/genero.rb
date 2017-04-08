@@ -37,6 +37,7 @@ class Genero
     hash
   end
 
+  # rubocop:disable Metrics/MethodLength
   def to_sql
     fields = ''
     values = ''

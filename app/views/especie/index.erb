@@ -1,3 +1,7 @@
+<a href="/especies/create" class="btn-floating btn-large waves-effect waves-light green add-element-button">
+  <i class="fa fa-plus"></i>
+</a>
+
 <% especies.each do |especie| %>
     <a href="/especies/edit/<%= especie.genero_nombre %>_<%= especie.nombre %>" class="hoverable card especie-wrapper waves-effect waves-teal">
       <img src="<%= especie.thumbnail_path %>" class="responsive-img thumbnail">
