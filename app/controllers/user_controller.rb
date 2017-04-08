@@ -17,6 +17,12 @@ class UserController < FloramoApp
     erb :'/user/create', locals: { user: User.new({}) }
   end
 
+  get '/password/:username', auth: :user do
+    repo = UserRepository.new(pg_connection)
+    user = repo.find_by_username(params[:username])
+    erb :'/user/password', locals: { user: user }
+  end
+
   post '/create', auth: :admin do
     service = UserService.new(pg_connection)
     saved = service.create(params)
@@ -31,6 +37,17 @@ class UserController < FloramoApp
     flash[:warning] = 'ERROR' unless saved
     flash[:success] = 'OK'
     redirect '/users'
+  end
+
+  post '/password', auth: :user do
+    service = UserService.new(pg_connection)
+    saved = service.update_password(params)
+    unless saved
+      flash[:warning] = 'ERROR' unless saved
+      halt(500, erb(:'/error/500', locals: { error: '' }))
+    end
+    flash[:success] = 'OK'
+    redirect_for_role
   end
 
   post '/delete', auth: :admin do

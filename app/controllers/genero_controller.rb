@@ -5,7 +5,7 @@ require_relative 'connection_helper'
 class GeneroController < FloramoApp
   include ConnectionHelper
 
-  get '/familia/:familia_nombre', auth: :admin do
+  get '/familia/:familia_nombre', auth: :editor do
     service = GeneroService.new(pg_connection)
     service.find_by_familia_for_autocomplete(params[:familia_nombre])
   end

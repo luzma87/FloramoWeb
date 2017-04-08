@@ -60,6 +60,10 @@ class User
     role == USER
   end
 
+  def editor?
+    role == EDITOR
+  end
+
   validates :password, presence: true, size: 8..255, format: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).+\z/
   validates :username, presence: true, size: 6..12, format: /\A[a-zA-Z0-9_]+\z/
 end

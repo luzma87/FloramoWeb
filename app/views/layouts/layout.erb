@@ -28,22 +28,29 @@
             Floramo Web
           </a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <a href="/migraciones/all">
-                <i class="fa fa-flip-horizontal fa-hand-spock-o"></i>
-                Todos sqls
-              </a>
-            </li>
-            <li>
-              <a href="/users">
-                <i class="fa fa-users"></i>
-                Usuarios
-              </a>
-            </li>
+            <% if @user.role == 'admin' %>
+                <li>
+                  <a href="/migraciones/all">
+                    <i class="fa fa-flip-horizontal fa-hand-spock-o"></i>
+                    Todos sqls
+                  </a>
+                </li>
+                <li>
+                  <a href="/users">
+                    <i class="fa fa-users"></i>
+                    Usuarios
+                  </a>
+                </li>
+            <% end %>
             <li>
               <a href="/login/logout">
                 <i class="fa fa-sign-out"></i>
                 Salir
+              </a>
+            </li>
+            <li>
+              <a href="/users/password/<%= @user.username %>">
+                [<%= @user.username %>]
               </a>
             </li>
           </ul>

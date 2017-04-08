@@ -52,8 +52,12 @@ class FloramoApp < Sinatra::Application
       !@user.nil?
     end
 
+    def editor?
+      !@user.nil? && @user.editor?
+    end
+
     def admin?
-      !@user.nil? && @user.admin?
+      !@user.nil? && (@user.admin? || @user.editor?)
     end
   end
 
@@ -70,6 +74,7 @@ class FloramoApp < Sinatra::Application
   def redirect_for_role
     @user = session[:user]
     redirect '/especies' if admin?
-    redirect '/index' if user?
+    redirect '/especies' if user?
+    redirect '/especies' if editor?
   end
 end

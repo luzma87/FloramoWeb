@@ -11,14 +11,14 @@ require_relative 'connection_helper'
 class EspecieController < FloramoApp
   include ConnectionHelper
 
-  get '/', auth: :admin do
+  get '/', auth: :user do
     repo = EspecieRepository.new(pg_connection)
     especies = repo.find_all
 
     erb :'/especie/index', locals: { especies: especies }
   end
 
-  get '/edit/:nombre_cientifico', auth: :admin do
+  get '/edit/:nombre_cientifico', auth: :editor do
     nombre_cientifico = params[:nombre_cientifico]
 
     service = EspecieService.new(pg_connection)
@@ -37,7 +37,7 @@ class EspecieController < FloramoApp
     }
   end
 
-  get '/create', auth: :admin do
+  get '/create', auth: :editor do
     familia_service = FamiliaService.new(pg_connection)
     color_repo = ColorRepository.new(pg_connection)
     forma_vida_repo = FormaVidaRepository.new(pg_connection)
@@ -49,7 +49,7 @@ class EspecieController < FloramoApp
     }
   end
 
-  post '/save', auth: :admin do
+  post '/save', auth: :editor do
     service = EspecieService.new(pg_connection)
     saved = service.save(params)
     flash[:warning] = 'ERROR' unless saved
@@ -59,7 +59,7 @@ class EspecieController < FloramoApp
     redirect '/especies'
   end
 
-  post '/create', auth: :admin do
+  post '/create', auth: :editor do
     service = EspecieService.new(pg_connection)
     saved = service.create(params)
     flash[:warning] = 'ERROR' unless saved

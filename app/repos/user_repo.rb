@@ -5,7 +5,7 @@ class UserRepository
     @db = connection[:users]
   end
 
-  def find_one_by_username(username)
+  def find_by_username(username)
     result = @db.where(username: username)
     first_result = result.first
     user = nil
