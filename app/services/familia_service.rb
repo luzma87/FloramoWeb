@@ -18,7 +18,14 @@ class FamiliaService
 
   def java_all_sqls
     lists_service = ListsService.new
-    familias = lists_service.java_sqls(@repo.find_all)
+    familias = lists_service.java_insert_sqls(@repo.find_all)
     lists_service.sqls_function('Familias', familias)
+  end
+
+  def java_sqls_since(date)
+    lists_service = ListsService.new
+    familias = @repo.find_since(date)
+    lists_service.java_delete_sqls(familias, 'familia')
+    lists_service.java_insert_sqls(familias)
   end
 end

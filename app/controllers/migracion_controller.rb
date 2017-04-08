@@ -8,18 +8,23 @@ class MigracionController < FloramoApp
   get '/all', auth: :admin do
     service = MigracionService.new(pg_connection)
     sql = service.all_sqls
-    erb :'/migracion/index', locals: { sql: sql }
+    erb :'/migracion/index', locals: { title: 'Todos los datos', sql: sql }
   end
 
   get '/new', auth: :admin do
-    service = MigracionService.new(pg_connection)
-    sql = service.new_sqls
-    erb :'/migracion/index', locals: { sql: sql }
+    erb :'/migracion/new'
   end
 
   get '/', auth: :admin do
     service = MigracionService.new(pg_connection)
     sql = service.all_sqls
     erb :'/migracion/index', locals: { sql: sql }
+  end
+
+  get '/new_sqls', auth: :admin do
+    service = MigracionService.new(pg_connection)
+    selected_date = params[:date]
+    sql = service.sqls_since(selected_date)
+    erb :'/migracion/index', locals: { title: "Actualizados desde #{selected_date}", sql: sql }
   end
 end

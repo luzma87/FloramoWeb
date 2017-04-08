@@ -11,16 +11,20 @@ class MigracionService
   end
 
   def all_sqls
-    sqls = ''
-    sqls += dictionaries_all_sqls
+    sqls = dictionaries_all_sqls
     sqls += FamiliaService.new(@connection).java_all_sqls
     sqls += GeneroService.new(@connection).java_all_sqls
     sqls += EspecieService.new(@connection).java_all_sqls
     sqls + FotoService.new(@connection).java_all_sqls
   end
 
-  def new_sqls
-    ''
+  def sqls_since(date)
+    sqls = 'function updateIf() {<br/>'
+    sqls += FamiliaService.new(@connection).java_sqls_since(date)
+    sqls += GeneroService.new(@connection).java_sqls_since(date)
+    sqls += EspecieService.new(@connection).java_sqls_since(date)
+    sqls += FotoService.new(@connection).java_sqls_since(date)
+    sqls + '}'
   end
 
   private

@@ -8,7 +8,13 @@ class ColorService
 
   def java_all_sqls
     lists_service = ListsService.new
-    colors = lists_service.java_sqls(@repo.find_all)
+    colors = lists_service.java_insert_sqls(@repo.find_all)
+    lists_service.sqls_function('Colores', colors)
+  end
+
+  def java_new_sqls
+    lists_service = ListsService.new
+    colors = lists_service.java_insert_sqls(@repo.find_new)
     lists_service.sqls_function('Colores', colors)
   end
 end

@@ -8,10 +8,19 @@ class ListsService
     json + '}'
   end
 
-  def java_sqls(list)
+  def java_insert_sqls(list)
     sql = ''
     list.each do |element|
       sql += "&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(\"#{element.to_sql}\");<br/>"
+    end
+    sql
+  end
+
+  def java_delete_sqls(list, table)
+    sql = ''
+    list.each do |element|
+      delete_sql = "DELETE FROM #{table} where id = \\\"#{element.id}\\\""
+      sql += "&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(\"#{delete_sql}\");<br/>"
     end
     sql
   end

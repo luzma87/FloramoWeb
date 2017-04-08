@@ -15,6 +15,15 @@ class FamiliaRepository
     familias
   end
 
+  def find_since(date)
+    results = @db.where { "modified_date >= '#{date}'" }.order(:nombre)
+    familias = []
+    results.each do |row|
+      familias.push(Familia.new(row))
+    end
+    familias
+  end
+
   def find_by_name(name)
     results = @db.where(nombre: name)
     Familia.new(results.first)

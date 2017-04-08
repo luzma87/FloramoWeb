@@ -1,0 +1,29 @@
+<div class="row">
+  <form action="/migraciones/new_sqls" class="col s12">
+    <div class="row">
+      <div class="input-field col s3">
+        <input type="date" id="date" name="date" class="datepicker">
+        <label for="date">Actualizados desde</label>
+      </div>
+      <div class="input-field col s1">
+        <button type="submit" class="btn orange lighten-2">Ver</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').pickadate({
+            onSet        : function (arg) {
+                if ('select' in arg) { //prevent closing on selecting month/year
+                    this.close();
+                }
+            },
+            selectMonths : true,
+            selectYears  : 15,
+            format       : 'yyyy-mm-dd'
+        });
+    });
+
+</script>

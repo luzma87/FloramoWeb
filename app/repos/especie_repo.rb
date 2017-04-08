@@ -20,6 +20,16 @@ class EspecieRepository
     especies
   end
 
+  def find_since(date)
+    sql = "#{base_select_sql} where e.modified_date >= '#{date}' order by genero, nombre"
+
+    especies = []
+    @connection.fetch(sql) do |row|
+      especies.push(especie(row))
+    end
+    especies
+  end
+
   def find_by_genero_and_especie(genero, especie)
     sql = "#{base_select_sql} where  e.nombre = '#{especie}' and g.nombre = '#{genero}'"
     especies = []

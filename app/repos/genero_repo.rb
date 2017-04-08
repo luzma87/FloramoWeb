@@ -27,6 +27,17 @@ class GeneroRepository
     generos.first
   end
 
+  def find_since(date)
+    sql = "select g.id, g.nombre, f.id familia_id, f.nombre familia from genero g
+          inner join familia f on g.familia_id = f.id
+          where g.modified_date >= '#{date}'"
+    generos = []
+    @connection.fetch(sql) do |row|
+      generos.push(genero(row))
+    end
+    generos
+  end
+
   def find_by_familia(name)
     sql = "SELECT id, nombre from genero
             WHERE familia_id = (SELECT id FROM familia WHERE nombre = '#{name}')"

@@ -8,7 +8,7 @@ class FormaVidaService
 
   def java_all_sqls
     lists_service = ListsService.new
-    formas_vida = lists_service.java_sqls(@repo.find_all)
+    formas_vida = lists_service.java_insert_sqls(@repo.find_all)
     lists_service.sqls_function('FormasVida', formas_vida)
   end
 end
