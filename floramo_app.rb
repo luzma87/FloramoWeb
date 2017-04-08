@@ -11,7 +11,8 @@ class FloramoApp < Sinatra::Application
 
   configure { set :server, :puma }
 
-  set :session_secret, 'BJYQOxqWDiR8J9DlIvFARfPjLfOXRe9J'
+  set :session_secret, ENV.fetch('SESSION_SECRET')
+  # set :session_secret, 'BJYQOxqWDiR8J9DlIvFARfPjLfOXRe9J'
   use Rack::Session::Cookie,
       key: '_rack_session',
       path: '/',
