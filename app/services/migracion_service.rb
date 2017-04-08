@@ -12,7 +12,7 @@ class MigracionService
 
   def all_sqls
     sqls = ''
-    sqls += dictionaries_sqls
+    sqls += dictionaries_all_sqls
     sqls += FamiliaService.new(@connection).java_all_sqls
     sqls += GeneroService.new(@connection).java_all_sqls
     sqls += EspecieService.new(@connection).java_all_sqls
@@ -25,7 +25,7 @@ class MigracionService
 
   private
 
-  def dictionaries_sqls
+  def dictionaries_all_sqls
     sqls = ColorService.new(@connection).java_all_sqls
     sqls + FormaVidaService.new(@connection).java_all_sqls
   end

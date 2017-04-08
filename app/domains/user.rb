@@ -49,6 +49,7 @@ class User
       field = var.to_s.delete('@')
       hash[field] = instance_variable_get(var)
     end
+    hash[:modified_date] = Time.now
     hash
   end
 

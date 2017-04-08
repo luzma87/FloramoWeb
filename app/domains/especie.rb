@@ -116,6 +116,7 @@ class Especie
       else hash[field] = instance_variable_get(var)
       end
     end
+    hash[:modified_date] = Time.now
     hash
   end
 
