@@ -53,11 +53,11 @@ class FloramoApp < Sinatra::Application
     end
 
     def editor?
-      !@user.nil? && @user.editor?
+      !@user.nil? && (@user.admin? || @user.editor?)
     end
 
     def admin?
-      !@user.nil? && (@user.admin? || @user.editor?)
+      !@user.nil? && @user.admin?
     end
   end
 
