@@ -23,8 +23,10 @@ class MigracionController < FloramoApp
 
   get '/new_sqls', auth: :admin do
     service = MigracionService.new(pg_connection)
+    with_fotos = params[:fotos] == 'on'
     selected_date = params[:date]
-    sql = service.sqls_since(selected_date)
+    sql = ''
+    sql = service.sqls_since(selected_date, with_fotos) unless selected_date == ''
     erb :'/migracion/index', locals: { title: "Actualizados desde #{selected_date}", sql: sql }
   end
 end

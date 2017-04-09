@@ -18,12 +18,12 @@ class MigracionService
     sqls + FotoService.new(@connection).java_all_sqls
   end
 
-  def sqls_since(date)
+  def sqls_since(date, with_fotos)
     sqls = 'function updateIf() {<br/>'
     sqls += FamiliaService.new(@connection).java_sqls_since(date)
     sqls += GeneroService.new(@connection).java_sqls_since(date)
     sqls += EspecieService.new(@connection).java_sqls_since(date)
-    sqls += FotoService.new(@connection).java_sqls_since(date)
+    sqls += FotoService.new(@connection).java_sqls_since(date) if with_fotos
     sqls + '}'
   end
 
