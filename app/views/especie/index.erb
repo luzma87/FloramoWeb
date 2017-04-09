@@ -1,9 +1,17 @@
 <% has_permission = %w(admin editor).include?(@user.role) %>
 <% if has_permission %>
-<a href="/especies/create" class="btn-floating btn-large waves-effect waves-light green add-element-button">
-  <i class="fa fa-plus"></i>
-</a>
+    <a href="/especies/create" class="btn-floating btn-large waves-effect waves-light green add-element-button">
+      <i class="fa fa-plus"></i>
+    </a>
 <% end %>
+
+<div class="row">
+  <div class="input-field col s4 offset-s2">
+    <input type="text" id="buscar">
+    <label for="buscar">Buscar</label>
+  </div>
+</div>
+
 <% especies.each do |especie| %>
     <% url = "/especies/edit/#{especie.genero_nombre}_#{especie.nombre}" %>
     <a href="<%= has_permission ? url : '#' %>" class="hoverable card especie-wrapper waves-effect waves-teal">
@@ -24,3 +32,13 @@
       </div>
     </a>
 <% end %>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#buscar").keyup(function () {
+            $(".especie-wrapper").hide();
+            $(".especie-wrapper:contains('" + $(this).val() + "')").show();
+        });
+    });
+</script>
