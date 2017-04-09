@@ -48,6 +48,12 @@ class GeneroRepository
     generos
   end
 
+  def insert(genero)
+    id = @db.insert(genero.to_save)
+    genero.id = id
+    genero
+  end
+
   private
 
   def genero(row)

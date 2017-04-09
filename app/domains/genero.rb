@@ -9,7 +9,7 @@ class Genero
     @familia = params[:familia]
   end
 
-  attr_reader :id
+  attr_accessor :id
   attr_accessor :nombre
   attr_accessor :familia
 
@@ -31,6 +31,21 @@ class Genero
     hash = {}
     instance_variables.each do |var|
       unless var == :'@errors'
+        hash[var.to_s.delete('@')] = instance_variable_get(var)
+      end
+    end
+    hash
+  end
+
+  def to_save
+    hash = {}
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@id']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      if field == 'familia'
+        hash[:familia_id] = @familia.id
+      else
         hash[var.to_s.delete('@')] = instance_variable_get(var)
       end
     end
@@ -86,4 +101,5 @@ class Genero
       field
     end
   end
+
 end

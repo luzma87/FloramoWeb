@@ -50,8 +50,16 @@ class EspecieService
     familia = @familia_repo.find_by_name(familia_nombre)
     genero = @genero_repo.find_by_name(genero_nombre)
 
-    params_especie[:genero] = genero
+    unless genero
+      params = {
+        nombre: genero_nombre,
+        familia: familia
+      }
+      genero = Genero.new(params)
+      genero = @genero_repo.insert(genero)
+    end
 
+    params_especie[:genero] = genero
     familias_equal = familia == genero.familia
     return false unless familias_equal
     Especie.new(params_especie)
