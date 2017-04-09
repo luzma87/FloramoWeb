@@ -108,12 +108,18 @@ class Especie
       field = var.to_s.delete('@')
 
       case field
-      when 'genero' then hash[:genero_id] = @genero.id
-      when 'color1' then hash[:color1_id] = @color1 == '' ? nil : @color1
-      when 'color2' then hash[:color2_id] = @color2 == '' ? nil : @color2
-      when 'forma_vida1' then hash[:forma_vida1_id] = @forma_vida1 == '' ? nil : @forma_vida1
-      when 'forma_vida2' then hash[:forma_vida2_id] = @forma_vida2 == '' ? nil : @forma_vida2
-      else hash[field] = instance_variable_get(var)
+      when 'genero' then
+        hash[:genero_id] = @genero.id
+      when 'color1' then
+        hash[:color1_id] = @color1 == '' ? nil : @color1
+      when 'color2' then
+        hash[:color2_id] = @color2 == '' ? nil : @color2
+      when 'forma_vida1' then
+        hash[:forma_vida1_id] = @forma_vida1 == '' ? nil : @forma_vida1
+      when 'forma_vida2' then
+        hash[:forma_vida2_id] = @forma_vida2 == '' ? nil : @forma_vida2
+      else
+        hash[field] = instance_variable_get(var)
       end
     end
     hash[:modified_date] = Time.now
@@ -121,23 +127,97 @@ class Especie
   end
 
   def to_sql
-    fields = ''
-    values = ''
+    fields = []
+    values = []
     instance_variables.each do |var|
       ignored_fields = [:'@errors']
       next if ignored_fields.include? var
       field = var.to_s.delete('@')
 
-      fields += "#{field}, "
-      values += case field
-                when 'genero' then "\\\"#{@genero.id}\\\", "
-                when 'color1' then "\\\"#{@color1 ? @color1.id : nil}\\\", "
-                when 'color2' then "\\\"#{@color2 ? @color2.id : nil}\\\", "
-                when 'forma_vida1' then "\\\"#{@forma_vida1 ? @forma_vida1.id : nil}\\\", "
-                when 'forma_vida2' then "\\\"#{@forma_vida2 ? @forma_vida2.id : nil}\\\", "
-                else "\\\"#{instance_variable_get(var)}\\\", "
-                end
+      fields.push(actual_field(field))
+      str = case field
+            when 'genero' then
+              @genero.id
+            when 'color1' then
+              id_or_nil(@color1)
+            when 'color2' then
+              id_or_nil(@color2)
+            when 'forma_vida1' then
+              id_or_nil(@forma_vida1)
+            when 'forma_vida2' then
+              id_or_nil(@forma_vida2)
+            else
+              instance_variable_get(var)
+            end
+      values.push("\\\"#{str}\\\"")
     end
-    "INSERT INTO especie (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+    "INSERT INTO especie (#{fields.join(', ')}) values(#{values.join(', ')})"
+  end
+
+  def to_update_sql(with_description, only_description)
+    values = []
+    add_description = with_description || only_description
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@id']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      value = actual_value(add_description, field, only_description, var)
+      values.push("#{actual_field(field)} = #{value}")
+    end
+    "UPDATE especie SET #{values.join(', ')} WHERE id = \\\"#{@id}\\\""
+  end
+
+  def actual_value(add_description, field, only_description, var)
+    case field
+    when 'id' then
+      field_or_nil_str(@id)
+    when 'genero' then
+      id_or_nil_str(@genero) unless only_description
+    when 'color1' then
+      id_or_nil_str(@color1) unless only_description
+    when 'color2' then
+      id_or_nil_str(@color2) unless only_description
+    when 'forma_vida1' then
+      id_or_nil_str(@forma_vida1) unless only_description
+    when 'forma_vida2' then
+      id_or_nil_str(@forma_vida2) unless only_description
+    when 'descripcion_es' then
+      field_or_nil_str(instance_variable_get(var)) if add_description
+    when 'descripcion_en' then
+      field_or_nil_str(instance_variable_get(var)) if add_description
+    else
+      field_or_nil_str(instance_variable_get(var)) unless only_description
+    end
+  end
+
+  def actual_field(field)
+    case field
+    when 'genero' then
+      'genero_id'
+    when 'color1' then
+      'color1_id'
+    when 'color2' then
+      'color2_id'
+    when 'forma_vida1' then
+      'forma_vida1_id'
+    when 'forma_vida2' then
+      'forma_vida2_id'
+    else
+      field
+    end
+  end
+
+  private
+
+  def id_or_nil(field)
+    field ? field.id : nil
+  end
+
+  def id_or_nil_str(field)
+    field ? "\\\"#{field.id}\\\"" : 'null'
+  end
+
+  def field_or_nil_str(field)
+    field ? "\\\"#{field}\\\"" : 'null'
   end
 end

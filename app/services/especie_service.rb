@@ -35,11 +35,10 @@ class EspecieService
     lists_service.sqls_function('Especies', especies)
   end
 
-  def java_sqls_since(date)
+  def java_sqls_since(date, with_description, only_description)
     lists_service = ListsService.new
     especies = @repo.find_since(date)
-    sqls = lists_service.java_delete_sqls(especies, 'especie')
-    sqls + lists_service.java_insert_sqls(especies)
+    lists_service.java_update_sqls(especies, with_description, only_description)
   end
 
   private

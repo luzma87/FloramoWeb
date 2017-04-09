@@ -28,8 +28,7 @@ class FotoService
   def java_sqls_since(date)
     lists_service = ListsService.new
     fotos = @repo.find_since(date)
-    sqls = lists_service.java_delete_sqls(fotos, 'foto')
-    sqls + lists_service.java_insert_sqls(fotos)
+    lists_service.java_update_sqls(fotos, false, false)
   end
 
   private

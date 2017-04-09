@@ -16,6 +16,15 @@ class ListsService
     sql
   end
 
+  def java_update_sqls(list, with_description, only_description)
+    sql = ''
+    list.each do |element|
+      update_sql = element.to_update_sql(with_description, only_description)
+      sql += "&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(\"#{update_sql}\");<br/>"
+    end
+    sql
+  end
+
   def java_delete_sqls(list, table)
     sql = ''
     list.each do |element|

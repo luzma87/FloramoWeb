@@ -25,7 +25,6 @@ class GeneroService
   def java_sqls_since(date)
     lists_service = ListsService.new
     generos = @repo.find_since(date)
-    sqls = lists_service.java_delete_sqls(generos, 'genero')
-    sqls + lists_service.java_insert_sqls(generos)
+    lists_service.java_update_sqls(generos, false, false)
   end
 end

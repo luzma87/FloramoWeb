@@ -50,15 +50,26 @@ class Foto
   end
 
   def to_sql
-    fields = ''
-    values = ''
+    fields = []
+    values = []
     instance_variables.each do |var|
       ignored_fields = [:'@errors']
       next if ignored_fields.include? var
       field = var.to_s.delete('@')
-      fields += "#{field}, "
-      values += "\"#{instance_variable_get(var)}\", "
+      fields.push(field)
+      values.push("\\\"#{instance_variable_get(var)}\\\"")
     end
-    "INSERT INTO foto (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+    "INSERT INTO foto (#{fields.join(', ')}) values(#{values.join(', ')})"
+  end
+
+  def to_update_sql(_, _)
+    values = []
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@id']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      values.push("#{field} = \\\"#{instance_variable_get(var)}\\\"")
+    end
+    "UPDATE foto SET #{values.join(', ')} WHERE id = \\\"#{@id}\\\""
   end
 end

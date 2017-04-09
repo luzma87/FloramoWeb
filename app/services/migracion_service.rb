@@ -18,12 +18,14 @@ class MigracionService
     sqls + FotoService.new(@connection).java_all_sqls
   end
 
-  def sqls_since(date, with_fotos)
+  # rubocop:disable Metrics/AbcSize
+  def sqls_since(date, flags)
     sqls = 'function updateIf() {<br/>'
     sqls += FamiliaService.new(@connection).java_sqls_since(date)
     sqls += GeneroService.new(@connection).java_sqls_since(date)
-    sqls += EspecieService.new(@connection).java_sqls_since(date)
-    sqls += FotoService.new(@connection).java_sqls_since(date) if with_fotos
+    sqls += EspecieService.new(@connection)
+                          .java_sqls_since(date, flags[:with_description], flags[:only_description])
+    sqls += FotoService.new(@connection).java_sqls_since(date) if flags[:with_fotos]
     sqls + '}'
   end
 

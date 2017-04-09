@@ -39,20 +39,51 @@ class Genero
 
   # rubocop:disable Metrics/MethodLength
   def to_sql
-    fields = ''
-    values = ''
+    fields = []
+    values = []
     instance_variables.each do |var|
       ignored_fields = [:'@errors']
       next if ignored_fields.include? var
       field = var.to_s.delete('@')
 
-      fields += "#{field}, "
-      values += if field == 'familia'
-                  "\\\"#{@familia.id}\\\", "
-                else
-                  "\\\"#{instance_variable_get(var)}\\\", "
-                end
+      fields.push(actual_field(field))
+      str = if field == 'familia'
+              @familia.id
+            else
+              instance_variable_get(var)
+            end
+      values.push("\\\"#{str}\\\"")
     end
-    "INSERT INTO genero (#{fields.chomp(', ')}) values(#{values.chomp(', ')})"
+    "INSERT INTO genero (#{fields.join(', ')}) values(#{values.join(', ')})"
+  end
+
+  def to_update_sql(_, _)
+    values = []
+    instance_variables.each do |var|
+      ignored_fields = [:'@errors', :'@id']
+      next if ignored_fields.include? var
+      field = var.to_s.delete('@')
+      value = actual_value(field, var)
+      values.push("#{actual_field(field)} = \\\"#{value}\\\"")
+    end
+    "UPDATE genero SET #{values.join(', ')} WHERE id = \\\"#{@id}\\\""
+  end
+
+  private
+
+  def actual_value(field, var)
+    if field == 'familia'
+      @familia.id
+    else
+      instance_variable_get(var)
+    end
+  end
+
+  def actual_field(field)
+    if field == 'familia'
+      'familia_id'
+    else
+      field
+    end
   end
 end
